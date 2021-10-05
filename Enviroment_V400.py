@@ -8,9 +8,14 @@ FAR = 1e7
 class logisticNetwork:
     def __init__(self):
         self.network = nx.Graph()
-        self.f = open('graph.csv', 'r')
-        self.data = csv.reader(self.f)
+        self.f1 = open('.csv', 'r')             # 도로망 정보
+        self.f2 = open('.csv', 'r')             # 허브(연결정보, 처리용량 등) 정보
+        self.road_data = csv.reader(self.f1)
+        self.hub_data = csv.reader(self.f2)
+
+        self.hub_queue = [[] for _ in range(13)]
         next(self.data)
+
         for row in self.data:
             self.network.add_edge(row[0], row[1], weight=int(row[2]))
 
@@ -30,6 +35,9 @@ class logisticNetwork:
             data[arv] = Dis + dDis
             Dis += dDis
         return data
+
+    def HUB_line(self):
+        pass
 
     def hubSaturation(self):
         pass
